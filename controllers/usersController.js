@@ -95,10 +95,10 @@ const getCurrent = async (req, res, next) => {
 };
 
 const updateAvatar = async (req, res, next) => {
-  if (!req.file) {
-    throw HttpError(400, "Bad Request");
-  }
   try {
+    if (!req.file) {
+      throw HttpError(400, "Bad Request");
+    }
     const { _id } = req.user;
     const { path: tempUpload, originalname } = req.file;
 
