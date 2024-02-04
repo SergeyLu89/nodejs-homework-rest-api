@@ -11,6 +11,10 @@ const userSchema = Joi.object({
   password: Joi.string().pattern(patterns.password).required(),
 });
 
+const verifyEmailSchema = Joi.object({
+  email: Joi.string().pattern(patterns.email).required(),
+});
+
 const modelUserSchema = new Schema(
   {
     email: {
@@ -36,10 +40,18 @@ const modelUserSchema = new Schema(
       type: String,
       required: true,
     },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true }
 );
 
 const User = model("user", modelUserSchema);
 
-module.exports = { User, userSchema };
+module.exports = { User, userSchema, verifyEmailSchema };

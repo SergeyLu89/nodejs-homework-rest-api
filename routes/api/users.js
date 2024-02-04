@@ -9,6 +9,12 @@ const upload = require("../../middlewares/uploadMiddleware.js");
 const router = express.Router();
 
 router.post("/register", validate(schema.userSchema), UserController.register);
+router.get("/verify/:verificationToken", UserController.verifyEmail);
+router.post(
+  "/verify",
+  validate(schema.verifyEmailSchema),
+  UserController.resendVerifyEmail
+);
 router.post("/login", validate(schema.userSchema), UserController.login);
 router.post("/logout", authMiddleware, UserController.logout);
 router.get("/current", authMiddleware, UserController.getCurrent);
